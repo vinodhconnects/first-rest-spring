@@ -7,6 +7,11 @@ public class DataService {
 	
 	String names[]= {"Joseph","Arjun","Naveen","Peterson","Mary"};
 	
+	{
+		System.out.println("Dataservice up......");
+		
+	}
+	
 	public String[] getNames() {
 		return names;
 	}
