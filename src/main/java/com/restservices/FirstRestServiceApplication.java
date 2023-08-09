@@ -13,3 +13,15 @@ public class FirstRestServiceApplication {
 	}
 
 }
+
+/*
+
+    Any class that is annotated with stereotype
+(@Contoller/@RestController, @Service, @Component, @Repository) 
+will be instatantiated automatically whenever the application 
+is started
+
+Whenever a request is made with a path, in each class the
+request mapping are searched by dispatcherservlet and it would identify
+appropriate method
+*/
