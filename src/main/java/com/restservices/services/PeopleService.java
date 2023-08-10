@@ -52,8 +52,12 @@ public class PeopleService {
 	public void updatePerson(People p) throws RecordNotFoundException{
 		try {
 		 People people=repo.findBySno(p.getSno());
-		 if(people!=null)
-			 repo.save(p);
+		 if(people!=null) {
+			 people.setName(p.getName()==null?people.getName():p.getName());
+			 people.setCity(p.getCity()==null?people.getCity():p.getCity());
+			 repo.save(people);
+		 }
+			
 		 else
 		     throw new RecordNotFoundException(p.getSno());
 		}
