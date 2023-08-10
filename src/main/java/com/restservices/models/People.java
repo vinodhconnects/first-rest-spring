@@ -1,5 +1,7 @@
 package com.restservices.models;
 
+import java.io.Serializable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -9,6 +11,11 @@ import jakarta.persistence.Table;
 @Table
 public class People {
 
+	/**
+	 * 
+	 */
+
+	
 	@Id
 	 private Integer sno;
 	@Column
