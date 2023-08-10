@@ -66,5 +66,21 @@ public class PeopleService {
 		}
 	}
 	
+	public void deletePerson(Integer sno) throws RecordNotFoundException{
+		try {
+		 People people=repo.findBySno(sno);
+		 if(people!=null) {
+		
+			 repo.delete(people);
+		 }
+			
+		 else
+		     throw new RecordNotFoundException(sno);
+		}
+		catch(RecordNotFoundException e) {
+			throw e;
+		}
+	}
+	
 	
 }
