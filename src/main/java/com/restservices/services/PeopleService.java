@@ -25,4 +25,9 @@ public class PeopleService {
 	public List<People> getPeople(){
 		return repo.findAll();
 	}
+	
+	public void addPerson(People p){
+		
+		repo.save(p);
+	}
 }
