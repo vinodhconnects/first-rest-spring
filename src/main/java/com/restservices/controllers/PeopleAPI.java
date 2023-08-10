@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,7 +61,22 @@ public class PeopleAPI {
 	public ResponseEntity<Message> updatePerson(@RequestBody People people) {
 		try {
 			ps.updatePerson(people);
-			return new ResponseEntity<Message>(new Message("Succesfuly updated"),HttpStatus.CREATED);
+			return new ResponseEntity<Message>(new Message("Succesfuly updated"),HttpStatus.OK);
+		}
+		catch(RecordNotFoundException e) {
+			return new ResponseEntity<Message>(new Message(e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		catch(Exception e) {
+			return new ResponseEntity<Message>(new Message("Server side Error"),HttpStatus.INTERNAL_SERVER_ERROR);
+			
+		}
+	}
+	
+	@DeleteMapping(value="/people/{sno}")
+	public ResponseEntity<Message> deletePerson(@PathVariable Integer sno) {
+		try {
+			ps.deletePerson(sno);
+			return new ResponseEntity<Message>(new Message("Succesfuly deleted"),HttpStatus.OK);
 		}
 		catch(RecordNotFoundException e) {
 			return new ResponseEntity<Message>(new Message(e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
