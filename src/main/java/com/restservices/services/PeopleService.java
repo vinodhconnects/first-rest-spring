@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.restservices.models.People;
 import com.restservices.repositories.PeopleRepository;
+import com.restservices.utils.RecordAlreadyExistsException;
 
 import jakarta.annotation.PostConstruct;
 
@@ -26,8 +27,18 @@ public class PeopleService {
 		return repo.findAll();
 	}
 	
-	public void addPerson(People p){
-		
-		repo.save(p);
+	public void addPerson(People p) throws RecordAlreadyExistsException{
+		try {
+		 People people=repo.findBySno(p.getSno());
+		 if(people!=null)
+			 throw new RecordAlreadyExistsException(p.getSno());
+		 else
+		   repo.save(p);
+		}
+		catch(RecordAlreadyExistsException e) {
+			throw e;
+		}
 	}
+	
+	
 }
