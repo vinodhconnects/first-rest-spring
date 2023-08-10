@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restservices.models.People;
 import com.restservices.services.PeopleService;
+import com.restservices.utils.Message;
+import com.restservices.utils.RecordAlreadyExistsException;
 
 @RestController
 @RequestMapping("/api")
@@ -27,13 +29,17 @@ public class PeopleAPI {
 	}
 	
 	@PostMapping("/people")
-	public ResponseEntity<People> addPerson(@RequestBody People people) {
+	public ResponseEntity<Message> addPerson(@RequestBody People people) {
 		try {
 			ps.addPerson(people);
-			return new ResponseEntity<People>(people,HttpStatus.OK);
+			return new ResponseEntity<Message>(new Message("Succesfuly Inserted"),HttpStatus.CREATED);
+		}
+		catch(RecordAlreadyExistsException e) {
+			return new ResponseEntity<Message>(new Message("Record Already Exists"),HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		catch(Exception e) {
-			return new ResponseEntity<People>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Message>(new Message("Server side Error"),HttpStatus.INTERNAL_SERVER_ERROR);
+			
 		}
 	}
 }
