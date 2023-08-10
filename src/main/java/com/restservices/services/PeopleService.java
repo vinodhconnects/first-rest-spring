@@ -49,5 +49,18 @@ public class PeopleService {
 		}
 	}
 	
+	public void updatePerson(People p) throws RecordNotFoundException{
+		try {
+		 People people=repo.findBySno(p.getSno());
+		 if(people!=null)
+			 repo.save(p);
+		 else
+		     throw new RecordNotFoundException(p.getSno());
+		}
+		catch(RecordNotFoundException e) {
+			throw e;
+		}
+	}
+	
 	
 }
