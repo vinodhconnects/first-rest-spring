@@ -60,7 +60,7 @@ public class PeopleAPI {
 	public ResponseEntity<Message> updatePerson(@RequestBody People people) {
 		try {
 			ps.updatePerson(people);
-			return new ResponseEntity<Message>(new Message("Succesfuly Inserted"),HttpStatus.CREATED);
+			return new ResponseEntity<Message>(new Message("Succesfuly updated"),HttpStatus.CREATED);
 		}
 		catch(RecordNotFoundException e) {
 			return new ResponseEntity<Message>(new Message(e.getMessage()),HttpStatus.INTERNAL_SERVER_ERROR);
