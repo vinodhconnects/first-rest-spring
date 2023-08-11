@@ -32,7 +32,7 @@ public class PeopleAPI {
 		return ps.getPeople();
 	}
 	
-	@GetMapping("/people/{sno}")
+	@GetMapping("/people/{sno}")//response may be either people object or message object
 	public ResponseEntity getPeople(@PathVariable Integer sno) {
 		try {
 			return new ResponseEntity<People>(ps.getPeople(sno),HttpStatus.OK);
