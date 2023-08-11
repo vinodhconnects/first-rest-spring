@@ -20,6 +20,12 @@ import com.restservices.utils.Message;
 import com.restservices.utils.RecordAlreadyExistsException;
 import com.restservices.utils.RecordNotFoundException;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 @RequestMapping("/api")
 public class PeopleAPI {
@@ -27,11 +33,29 @@ public class PeopleAPI {
 	@Autowired
 	private PeopleService ps;
 	
+	 @Operation(
+		      summary = "Read All People",
+		      description = "Retrieve all People in the form of list")
+		  @ApiResponses({
+		      @ApiResponse(responseCode = "200", content = { @Content( mediaType = "application/json") }),
+		      @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+		      @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) 
+		})
+	 
 	@GetMapping("/people")
 	public List<People> getPeople() {
 		return ps.getPeople();
 	}
 	
+	 @Operation(
+		      summary = "Retrieve a Person by Id",
+		      description = "Get a Person object by specifying its id. The response is People object with sno,name and city")
+		  @ApiResponses({
+		      @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = People.class), mediaType = "application/json") }),
+		      @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+		      @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) 
+		})
+		
 	@GetMapping("/people/{sno}")//response may be either people object or message object
 	public ResponseEntity getPeople(@PathVariable Integer sno) {
 		try {
